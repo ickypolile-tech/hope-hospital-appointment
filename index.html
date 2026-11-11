@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hope – Hospital Appointment Booking</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#f7f4fc;--card:#fff;--ink:#1e1530;--mute:#675c7d;--p:#5b2c91;--p2:#7b46b8;--soft:#efe8f8;--line:#ddd0ee;--ok:#176b3a;--okbg:#def3e5;--bad:#a4262c;--badbg:#fbe3e3;--warn:#7a5200;--warnbg:#fff0cc;--on:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171020;--card:#221832;--ink:#f1eafb;--mute:#b3a6c9;--p:#b78af0;--p2:#c9a5f5;--soft:#2e2142;--line:#43325c;--ok:#7fd9a0;--okbg:#17351f;--bad:#ff9a9f;--badbg:#431a1d;--warn:#ffd77a;--warnbg:#3d2f08;--on:#1a0d2b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#171020;--card:#221832;--ink:#f1eafb;--mute:#b3a6c9;--p:#b78af0;--p2:#c9a5f5;--soft:#2e2142;--line:#43325c;--ok:#7fd9a0;--okbg:#17351f;--bad:#ff9a9f;--badbg:#431a1d;--warn:#ffd77a;--warnbg:#3d2f08;--on:#1a0d2b;color-scheme:dark}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:17px/1.5 Figtree,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--p2);outline-offset:2px}
+header{background:var(--p);color:#fff;position:sticky;top:0;z-index:5;padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) header{background:#3a1f61;color:#fff}}
+:root[data-theme="dark"] header{background:#3a1f61}
+.bar{max-width:1040px;margin:auto;display:flex;align-items:center;gap:16px;padding:12px 20px}
+.brand{font-weight:700;font-size:26px;letter-spacing:-.5px;display:flex;align-items:center;gap:8px}
+.brand i{width:30px;height:30px;border-radius:50%;background:#fff;color:#5b2c91;display:grid;place-items:center;font-style:normal;font-size:18px}
+nav{display:flex;gap:4px;margin-left:auto}
+nav button{background:none;border:0;color:#fff;padding:10px 14px;border-radius:10px;cursor:pointer;min-height:44px;font-weight:500;position:relative}
+nav button[aria-current=page]{background:rgba(255,255,255,.2);font-weight:700}
+.dot{background:#ffd166;color:#2b1a00;border-radius:99px;font-size:12px;font-weight:700;padding:0 7px;margin-left:6px}
+main{max-width:1040px;margin:auto;padding:24px 20px 60px}
+h1{font-size:32px;line-height:1.15;margin:0 0 6px;letter-spacing:-.6px}
+h2{font-size:22px;margin:28px 0 12px}
+h3{margin:0;font-size:18px}
+.sub{color:var(--mute);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.sp{flex:1}
+.btn{background:var(--p);color:var(--on);border:2px solid var(--p);border-radius:12px;padding:10px 18px;min-height:46px;font-weight:600;cursor:pointer}
+.btn.o{background:transparent;color:var(--p)}
+.btn.d{background:transparent;color:var(--bad);border-color:var(--bad)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.sm{min-height:40px;padding:6px 14px;font-size:15px}
+.hero{background:linear-gradient(135deg,#5b2c91,#8a52c9);color:#fff;border-radius:22px;padding:28px;display:grid;gap:14px}
+.hero h1{font-size:36px}
+.hero p{margin:0;opacity:.92}
+.search{display:grid;grid-template-columns:2fr 1.3fr 1.3fr;gap:10px}
+@media(max-width:700px){.search{grid-template-columns:1fr}.hero h1{font-size:28px}nav{position:fixed;left:0;right:0;bottom:0;background:var(--p);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));justify-content:space-around;margin:0;z-index:6}nav button{padding:8px 6px;font-size:13px;flex:1}.bar{padding:10px 16px}main{padding-bottom:96px}}
+@media(max-width:700px) and (prefers-color-scheme:dark){:root:not([data-theme="light"]) nav{background:#3a1f61}}
+label{font-weight:600;font-size:15px;display:block;margin-bottom:4px}
+.f{width:100%;border:2px solid var(--line);background:var(--card);border-radius:12px;padding:10px 12px;min-height:46px}
+.hero .f{border-color:transparent}
+.hero label{color:#fff}
+.av{width:52px;height:52px;border-radius:50%;background:var(--soft);color:var(--p);display:grid;place-items:center;font-weight:700;font-size:18px;flex:none}
+.tag{display:inline-block;background:var(--soft);color:var(--p);border-radius:8px;padding:2px 10px;font-size:14px;font-weight:600}
+.st{display:inline-flex;gap:6px;align-items:center;border-radius:8px;padding:2px 10px;font-size:14px;font-weight:700}
+.st::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.Confirmed{background:var(--okbg);color:var(--ok)}.Rescheduled{background:var(--warnbg);color:var(--warn)}.Cancelled{background:var(--badbg);color:var(--bad)}.Completed{background:var(--soft);color:var(--mute)}
+.muted{color:var(--mute);font-size:15px}
+.tabs{display:flex;gap:6px;margin:0 0 16px;flex-wrap:wrap}
+.tabs button{border:2px solid var(--line);background:var(--card);border-radius:99px;padding:8px 16px;min-height:44px;cursor:pointer;font-weight:600}
+.tabs button[aria-pressed=true]{background:var(--p);border-color:var(--p);color:var(--on)}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
+.slots button{border:2px solid var(--p);background:transparent;color:var(--p);border-radius:10px;min-height:44px;font-weight:600;cursor:pointer}
+.slots button[aria-pressed=true]{background:var(--p);color:var(--on)}
+.slots button:disabled{border-color:var(--line);color:var(--mute);text-decoration:line-through;cursor:not-allowed}
+.steps{display:flex;gap:6px;margin:0 0 20px;padding:0;list-style:none;flex-wrap:wrap}
+.steps li{flex:1;min-width:110px;border-top:5px solid var(--line);padding-top:6px;font-size:14px;color:var(--mute);font-weight:600}
+.steps li.on{border-color:var(--p);color:var(--p)}
+.steps li.done{border-color:var(--p2)}
+.kv{display:grid;grid-template-columns:110px 1fr;gap:6px 12px;margin:12px 0}
+.kv dt{color:var(--mute)}.kv dd{margin:0;font-weight:600}
+.ok{background:var(--okbg);color:var(--ok);border-radius:14px;padding:14px 18px;font-weight:600;margin-bottom:16px}
+.note{display:flex;gap:12px;align-items:flex-start}.note.un{border-left:6px solid var(--p)}
+dialog{border:0;border-radius:18px;padding:24px;max-width:420px;width:calc(100% - 32px);background:var(--card);color:var(--ink)}
+dialog::backdrop{background:rgba(30,10,50,.55)}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(90px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:12px;font-weight:600;z-index:20;max-width:92%;opacity:0;pointer-events:none;transition:opacity .2s}
+#toast.show{opacity:1}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{text-align:left;background:var(--p);color:var(--on);padding:10px 12px;font-size:15px}
+.tbl td{padding:12px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl tr:nth-child(even) td{background:var(--soft)}
+.scroll{overflow-x:auto;border-radius:14px;border:1px solid var(--line)}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.stats div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 16px}.stats b{font-size:22px;color:var(--p);display:block}
+.empty{text-align:center;padding:36px 16px;color:var(--mute)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="bar"><div class="brand"><i aria-hidden="true">♥</i>Hope</div>
+<nav aria-label="Main" id="nav"></nav></div></header>
+<main id="app" tabindex="-1"></main>
+<dialog id="dlg" aria-labelledby="dt"><h3 id="dt">Cancel this appointment?</h3><p id="dm" class="muted"></p><div class="row" style="justify-content:flex-end"><button class="btn o sm" id="dno">Keep appointment</button><button class="btn d sm" id="dyes">Cancel appointment</button></div></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+const DOCS=[
+{id:1,n:"Dr. Palesa Mokoena",s:"General Medicine",loc:"Block A, Room 12",y:12,about:"Family health, check-ups and chronic care."},
+{id:2,n:"Dr. Thabo Letsie",s:"Cardiology",loc:"Block B, Room 4",y:18,about:"Heart health, blood pressure and ECG tests."},
+{id:3,n:"Dr. Naledi Ramone",s:"Paediatrics",loc:"Children’s Wing, Room 2",y:9,about:"Care for babies, children and teenagers."},
+{id:4,n:"Dr. Karabo Sehloho",s:"Dermatology",loc:"Block C, Room 7",y:11,about:"Skin, hair and nail conditions."},
+{id:5,n:"Dr. Lineo Matsoso",s:"Gynaecology",loc:"Women’s Clinic, Room 3",y:15,about:"Women’s health and antenatal care."},
+{id:6,n:"Dr. Tumelo Khama",s:"General Medicine",loc:"Block A, Room 15",y:7,about:"Walk-in follow-ups and general consultations."},
+{id:7,n:"Dr. Mpho Rakoto",s:"Orthopaedics",loc:"Block B, Room 9",y:14,about:"Bones, joints and sports injuries."},
+{id:8,n:"Dr. Ayanda Nkosi",s:"Eye Clinic",loc:"Block C, Room 1",y:10,about:"Eye tests, glasses and eye infections."}];
+const TIMES=["08:30","09:00","09:30","10:30","11:00","13:30","14:00","15:30","16:00"];
+const PAT=["Thato M.","Lebo S.","Retselisitsoe P.","Nthabiseng L.","Moeketsi T.","Palesa K.","Tšepo R.","Limpho N."];
+const key=d=>{const z=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate())};
+const parse=k=>{const[a,b,c]=k.split("-");return new Date(+a,+b-1,+c)};
+const fmt=k=>parse(k).toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const hash=s=>{let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))>>>0;return h};
+const days=(n,from=0)=>{const o=[];let d=new Date();d.setDate(d.getDate()+from);while(o.length<n){if(d.getDay()%6)o.push(key(d));d.setDate(d.getDate()+1)}return o};
+const doc=id=>DOCS.find(d=>d.id==id);
+const ini=n=>n.replace("Dr. ","").split(" ").map(x=>x[0]).join("");
+const taken=(id,dk,t)=>hash(id+dk+t)%4==0||A.some(a=>a.doc==id&&a.date==dk&&a.time==t&&a.status!="Cancelled");
+let nid=10,A=[],N=[],view="home",tab="up",q={t:"",s:"",d:""},B=null,sdate=days(1)[0],uid=0;
+const dk=days(7,1);
+A=[{id:1,doc:1,date:dk[1],time:"09:30",reason:"General check-up",status:"Confirmed"},
+{id:2,doc:2,date:"2026-10-20",time:"11:00",reason:"Blood pressure review",status:"Completed"},
+{id:3,doc:4,date:"2026-09-30",time:"14:00",reason:"Skin rash",status:"Completed"}];
+N=[{id:1,t:"Reminder: you see "+doc(1).n+" on "+fmt(dk[1])+" at 09:30.",un:1,ts:"Today"}];
+try{const s=JSON.parse(localStorage.getItem("hope-v1")||"null");if(s){A=s.A;N=s.N;nid=s.nid}}catch(e){}
+const save=()=>{try{localStorage.setItem("hope-v1",JSON.stringify({A,N,nid}))}catch(e){}};
+const $=s=>document.querySelector(s),app=$("#app");
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("show"),3200)}
+function note(t){N.unshift({id:++nid,t,un:1,ts:"Just now"});}
+function go(v){view=v;if(v!="book")B=null;render();window.scrollTo(0,0);app.focus({preventScroll:true})}
+function nav(){const u=N.filter(n=>n.un).length;const it=[["home","Home"],["find","Find a doctor"],["appts","Appointments"],["notes","Reminders"],["staff","Staff schedule"]];
+$("#nav").innerHTML=it.map(([k,l])=>`<button data-go="${k}" ${view==k||(view=="book"&&k=="find")?'aria-current="page"':""}>${l}${k=="notes"&&u?`<span class="dot" aria-label="${u} unread">${u}</span>`:""}</button>`).join("")}
+function apptCard(a,mgmt){const d=doc(a.doc);return `<article class="card"><div class="row"><div class="av" aria-hidden="true">${ini(d.n)}</div><div class="sp"><h3>${d.n}</h3><span class="tag">${d.s}</span></div><span class="st ${a.status}">${a.status}</span></div>
+<dl class="kv"><dt>Date</dt><dd>${fmt(a.date)}</dd><dt>Time</dt><dd>${a.time}</dd><dt>Location</dt><dd>${d.loc}</dd><dt>Reason</dt><dd>${esc(a.reason)}</dd></dl>
+${mgmt&&(a.status=="Confirmed"||a.status=="Rescheduled")?`<div class="row"><button class="btn sm" data-resch="${a.id}">Reschedule</button><button class="btn d sm" data-cancel="${a.id}">Cancel</button></div>`:""}</article>`}
+function docCard(d){const nx=days(7,1).find(k=>TIMES.some(t=>!taken(d.id,k,t)));return `<article class="card"><div class="row"><div class="av" aria-hidden="true">${ini(d.n)}</div><div class="sp"><h3>${d.n}</h3><span class="tag">${d.s}</span></div></div>
+<p class="muted" style="margin:10px 0">${d.about}</p><p class="muted" style="margin:0 0 12px">${d.y} years’ experience · ${d.loc}<br><b>Next available:</b> ${nx?fmt(nx):"No slots this week"}</p>
+<button class="btn sm" data-book="${d.id}">Book appointment</button></article>`}
+function filters(){return DOCS.filter(d=>(!q.s||d.s==q.s)&&(!q.t||(d.n+" "+d.s).toLowerCase().includes(q.t.toLowerCase()))&&(!q.d||TIMES.some(t=>!taken(d.id,q.d,t))))}
+const specs=[...new Set(DOCS.map(d=>d.s))].sort();
+function searchForm(){return `<form class="search" role="search" id="sf" onsubmit="return false"><div><label for="qt">Doctor name or condition</label><input class="f" id="qt" type="search" placeholder="e.g. Mokoena" value="${esc(q.t)}"></div>
+<div><label for="qs">Specialty</label><select class="f" id="qs"><option value="">All specialties</option>${specs.map(s=>`<option ${q.s==s?"selected":""}>${s}</option>`).join("")}</select></div>
+<div><label for="qd">Available on</label><select class="f" id="qd"><option value="">Any day</option>${days(7,1).map(k=>`<option value="${k}" ${q.d==k?"selected":""}>${fmt(k)}</option>`).join("")}</select></div></form>`}
+function results(){const r=filters();return r.length?r.map(docCard).join(""):`<div class="empty card" style="grid-column:1/-1"><b>No doctors match your search.</b><br>Clear a filter or choose a different day.</div>`}
+function home(){const up=A.filter(a=>["Confirmed","Rescheduled"].includes(a.status)).sort((a,b)=>a.date+a.time>b.date+b.time?1:-1)[0];
+return `<section class="hero"><div><h1>Hello Mpho, how can we help today?</h1><p>Find a doctor and book a visit in under a minute.</p></div>${searchForm()}<div><button class="btn" style="background:#fff;color:#5b2c91;border-color:#fff" data-go="find">Find a doctor</button></div></section>
+<h2>Your next appointment</h2>${up?`<div class="grid">${apptCard(up,true)}</div>`:`<div class="empty card">You have no upcoming appointments.<br><button class="btn sm" data-go="find" style="margin-top:12px">Find a doctor</button></div>`}
+<h2>Browse by specialty</h2><div class="tabs">${specs.map(s=>`<button data-spec="${s}" aria-pressed="false">${s}</button>`).join("")}</div>`}
+function find(){return `<h1>Find a doctor</h1><p class="sub">Search by name or specialty, then choose a day.</p><div class="card" style="margin-bottom:20px">${searchForm()}</div><p class="muted" id="cnt" aria-live="polite">${filters().length} doctors found</p><div class="grid" id="res">${results()}</div>`}
+function stepper(n){return `<ol class="steps" aria-label="Booking progress">${["Doctor","Time","Details","Confirm"].map((s,i)=>`<li class="${i+1==n?"on":i+1<n?"done":""}" ${i+1==n?'aria-current="step"':""}>${i+1}. ${s}</li>`).join("")}</ol>`}
+function book(){const d=doc(B.doc);const h=`<button class="btn o sm" data-back style="margin-bottom:14px">Back</button><h1>${B.rid?"Reschedule appointment":"Book an appointment"}</h1>`;
+if(B.step==5)return `<div class="ok" role="alert">${B.rid?"Appointment rescheduled.":"Appointment booked successfully."} A reminder is set for the day before.</div><div class="grid">${apptCard(A.find(a=>a.id==B.done),false)}</div><div class="row" style="margin-top:18px"><button class="btn" data-go="appts">View my appointments</button><button class="btn o" data-go="home">Back to home</button></div>`;
+let c="";
+if(B.step==2){const ds=days(7,1);c=`<div class="card">${stepper(2)}<div class="row"><div class="av" aria-hidden="true">${ini(d.n)}</div><div><h3>${d.n}</h3><span class="tag">${d.s}</span></div></div><h2>Choose a day</h2><div class="tabs">${ds.map(k=>`<button data-day="${k}" aria-pressed="${B.date==k}">${fmt(k)}</button>`).join("")}</div>
+<h2 style="margin-top:8px">Choose a time</h2>${B.date?`<div class="slots">${TIMES.map(t=>{const x=taken(d.id,B.date,t)&&!(B.rid&&0);return `<button data-time="${t}" aria-pressed="${B.time==t}" ${x?`disabled aria-label="${t}, unavailable"`:""}>${t}</button>`}).join("")}</div><p class="muted">Crossed-out times are already booked.</p>`:`<p class="muted">Pick a day to see available times.</p>`}
+<div class="row" style="margin-top:18px"><button class="btn" data-next ${B.date&&B.time?"":"disabled"}>Continue</button></div></div>`}
+if(B.step==3)c=`<div class="card">${stepper(3)}<h2 style="margin-top:0">Visit details</h2><div style="max-width:480px"><label for="rs">Reason for visit <span class="muted">(required)</span></label><textarea class="f" id="rs" rows="3" placeholder="e.g. Cough for two weeks">${esc(B.reason||"")}</textarea><p class="muted" id="er" style="color:var(--bad);display:none">Please enter a reason so the doctor can prepare.</p>
+<label for="rm" style="margin-top:12px">Remind me by</label><select class="f" id="rm"><option>App notification</option><option>SMS</option><option>Email</option></select></div><div class="row" style="margin-top:18px"><button class="btn" data-next>Review booking</button></div></div>`;
+if(B.step==4)c=`<div class="card">${stepper(4)}<h2 style="margin-top:0">Check your booking</h2><dl class="kv"><dt>Doctor</dt><dd>${d.n}</dd><dt>Specialty</dt><dd>${d.s}</dd><dt>Date</dt><dd>${fmt(B.date)}</dd><dt>Time</dt><dd>${B.time}</dd><dt>Location</dt><dd>${d.loc}</dd><dt>Reason</dt><dd>${esc(B.reason)}</dd></dl><div class="row"><button class="btn" data-confirm>${B.rid?"Confirm new time":"Confirm booking"}</button><button class="btn o" data-back>Change details</button></div></div>`;
+return h+c}
+function appts(){const up=A.filter(a=>["Confirmed","Rescheduled"].includes(a.status)).sort((a,b)=>a.date+a.time>b.date+b.time?1:-1);const past=A.filter(a=>!up.includes(a)).sort((a,b)=>a.date<b.date?1:-1);const l=tab=="up"?up:past;
+return `<h1>My appointments</h1><p class="sub">Reschedule or cancel from any upcoming visit.</p><div class="tabs"><button data-tab="up" aria-pressed="${tab=="up"}">Upcoming (${up.length})</button><button data-tab="past" aria-pressed="${tab=="past"}">Past and cancelled (${past.length})</button></div>${l.length?`<div class="grid">${l.map(a=>apptCard(a,tab=="up")).join("")}</div>`:`<div class="empty card">${tab=="up"?"No upcoming appointments yet.":"Nothing here yet."}</div>`}`}
+function notes(){return `<h1>Reminders</h1><p class="sub">Booking updates and appointment reminders.</p><div class="row" style="margin-bottom:14px"><button class="btn o sm" data-readall>Mark all as read</button></div>${N.length?N.map(n=>`<div class="card note ${n.un?"un":""}" style="margin-bottom:10px"><div class="sp"><b>${esc(n.t)}</b><div class="muted">${n.ts}${n.un?" · New":""}</div></div></div>`).join(""):`<div class="empty card">No reminders yet.</div>`}`}
+function staff(){const ds=days(7);const rows=[];DOCS.forEach(d=>TIMES.forEach(t=>{if(hash("s"+d.id+sdate+t)%5==0)rows.push({t,p:PAT[hash(d.id+sdate+t)%PAT.length],d:d.n,st:hash(t+d.id)%7==0?"Cancelled":"Confirmed"})}));
+A.filter(a=>a.date==sdate).forEach(a=>rows.push({t:a.time,p:"Mpho (you)",d:doc(a.doc).n,st:a.status}));rows.sort((a,b)=>a.t>b.t?1:-1);
+const c=s=>rows.filter(r=>r.st==s).length;
+return `<h1>Staff schedule</h1><p class="sub">Daily appointments in time order.</p><div class="tabs">${ds.map(k=>`<button data-sd="${k}" aria-pressed="${sdate==k}">${fmt(k)}</button>`).join("")}</div><div class="stats"><div><b>${rows.length}</b>Total</div><div><b>${c("Confirmed")+c("Rescheduled")}</b>Active</div><div><b>${c("Cancelled")}</b>Cancelled</div></div>
+<div class="scroll"><table class="tbl"><thead><tr><th>Time</th><th>Patient</th><th>Doctor</th><th>Status</th></tr></thead><tbody>${rows.map(r=>`<tr><td><b>${r.t}</b></td><td>${esc(r.p)}</td><td>${r.d}</td><td><span class="st ${r.st}">${r.st}</span></td></tr>`).join("")||`<tr><td colspan="4" class="muted">No appointments on this day.</td></tr>`}</tbody></table></div>`}
+function render(){nav();app.innerHTML={home,find,book,appts,notes,staff}[view]();}
+function startBook(id,rid){const a=rid&&A.find(x=>x.id==rid);B={doc:id,step:2,date:"",time:"",reason:a?a.reason:"",rid:rid||0};view="book";render();window.scrollTo(0,0)}
+function refilter(){q.t=$("#qt").value;q.s=$("#qs").value;q.d=$("#qd").value;if(view=="find"){$("#res").innerHTML=results();$("#cnt").textContent=filters().length+" doctors found"}}
+document.addEventListener("click",e=>{const t=e.target.closest("button");if(!t)return;const D=t.dataset;
+if("go"in D)return go(D.go);
+if("spec"in D){q={t:"",s:D.spec,d:""};return go("find")}
+if("book"in D)return startBook(+D.book);
+if("resch"in D)return startBook(A.find(a=>a.id==D.resch).doc,+D.resch);
+if("cancel"in D){const a=A.find(x=>x.id==D.cancel);uid=a.id;$("#dm").textContent=doc(a.doc).n+", "+fmt(a.date)+" at "+a.time+". This frees the time slot for other patients.";$("#dlg").showModal();return}
+if("tab"in D){tab=D.tab;return render()}
+if("sd"in D){sdate=D.sd;return render()}
+if("day"in D){B.date=D.day;B.time="";return render()}
+if("time"in D){B.time=D.time;return render()}
+if("back"in D){if(B.step==2||B.step==5)return go(B.step==5?"home":"find");B.step--;if(B.step==3&&B.rid)B.step=2;return render()}
+if("next"in D){if(B.step==3){const r=$("#rs").value.trim();if(!r){$("#er").style.display="block";$("#rs").focus();return}B.reason=r}B.step=B.step==2&&B.rid?4:B.step+1;return render()}
+if("confirm"in D){if(taken(B.doc,B.date,B.time)&&!(B.rid&&A.find(a=>a.id==B.rid&&a.date==B.date&&a.time==B.time))){toast("That time was just taken. Please choose another.");B.step=2;return render()}
+const d=doc(B.doc);if(B.rid){const a=A.find(x=>x.id==B.rid);Object.assign(a,{date:B.date,time:B.time,reason:B.reason,status:"Rescheduled"});B.done=a.id;note("Appointment rescheduled to "+fmt(B.date)+" at "+B.time+" with "+d.n+".")}
+else{const a={id:++nid,doc:B.doc,date:B.date,time:B.time,reason:B.reason,status:"Confirmed"};A.push(a);B.done=a.id;note("Booking confirmed: "+d.n+", "+fmt(B.date)+" at "+B.time+".");note("Reminder set: we will remind you the day before.")}
+B.step=5;save();return render()}
+if("readall"in D){N.forEach(n=>n.un=0);save();return render()}});
+$("#dno").onclick=()=>$("#dlg").close();
+$("#dyes").onclick=()=>{const a=A.find(x=>x.id==uid);a.status="Cancelled";note("Appointment cancelled: "+doc(a.doc).n+", "+fmt(a.date)+" at "+a.time+".");save();$("#dlg").close();toast("Appointment cancelled");render()};
+document.addEventListener("input",e=>{if(e.target.closest("#sf"))refilter()});
+document.addEventListener("change",e=>{if(e.target.closest("#sf"))refilter()});
+render();
+</script>
+</body>
+</html>
